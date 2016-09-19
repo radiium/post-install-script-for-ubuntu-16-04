@@ -14,8 +14,9 @@ If you have suggestions, Do not hesitate to contact me
 
 ### Use
 
-[Download zip](https://github.com/radiium/post-install-script-for-ubuntu-16-04/archive/master.zip) and Extract .zip or clone repo
-run in your favorite terminal:
+Download and Extract .zip or clone repo
+
+Run in your favorite terminal:
 ```sh
 $ cd post-install-script-for-ubuntu-16-04-master
 $ chmod +x post-install.sh
