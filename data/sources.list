@@ -1,0 +1,47 @@
+#------------------------------------------------------------------------------#
+#                            OFFICIAL UBUNTU REPOS                             #
+#------------------------------------------------------------------------------#
+
+
+###### Ubuntu Main Repos
+deb http://fr.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
+# deb-src http://fr.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
+
+###### Ubuntu Update Repos
+deb http://fr.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse
+deb http://fr.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://fr.archive.ubuntu.com/ubuntu/ xenial-proposed main restricted universe multiverse
+deb http://fr.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+# deb-src http://fr.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse
+# deb-src http://fr.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
+# deb-src http://fr.archive.ubuntu.com/ubuntu/ xenial-proposed main restricted universe multiverse
+# deb-src http://fr.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse
+
+###### Ubuntu Partner Repo
+deb http://archive.canonical.com/ubuntu xenial partner
+# deb-src http://archive.canonical.com/ubuntu xenial partner
+
+#------------------------------------------------------------------------------#
+#                           UNOFFICIAL UBUNTU REPOS                            #
+#------------------------------------------------------------------------------#
+
+
+###### 3rd Party Binary Repos
+
+#### Unsettings PPA - http://www.florian-diesch.de/software/unsettings/
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0FEB6DD9
+deb http://ppa.launchpad.net/diesch/testing/ubuntu xenial main
+
+#### WebUpd8 PPA - http://www.webupd8.org/
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4C9D234C
+deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu xenial main
+
+####### 3rd Party Source Repos
+
+#### Unsettings PPA (Source) - http://www.florian-diesch.de/software/unsettings/
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0FEB6DD9
+# deb-src http://ppa.launchpad.net/diesch/testing/ubuntu xenial main
+
+#### WebUpd8 PPA (Source) - http://www.webupd8.org/
+## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4C9D234C
+# deb-src http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu xenial main

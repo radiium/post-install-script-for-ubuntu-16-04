@@ -1,0 +1,109 @@
+#!/bin/bash
+
+#!/bin/bash
+
+dir="$(dirname "$0")"
+MULTS="$dir/data/multimedias.list"
+TOOLS="$dir/data/tools.list"
+
+# Install preferred software using the list of packages 'data/multimedias.list'
+function tools {
+    i=1
+    packages_list=()
+    while read pkg ; do
+        packages_list+=("${pkg} $i off")
+        i=$[i+1]
+    done < $TOOLS
+    # Select packages
+    PACKAGES_SELECT=$(whiptail \
+        --title "List of available software" \
+        --checklist \
+        "Select by space key" \
+        --separate-output \
+        0 0 0 \
+        ${packages_list[@]} \
+        3>&1 1>&2 2>&3)
+    # Install selected packages
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        show_info 'Installing...'
+        show_warning 'Requires root privileges'
+        sudo apt-get install -y --no-install-recommends $PACKAGES_SELECT
+        # Done
+        show_success 'Done.'
+        # Check
+        EXITSTATUS=$1
+        if [[ $EXITSTATUS != 0 ]]; then
+            # Already installed
+            show_success 'Already installed.'
+            whiptail --title "Finished" --msgbox "Your preferred development tools are installed." 8 78
+            codecs
+        else
+            whiptail --title "Finished" --msgbox "Installation complete." 8 78
+            softwares
+        fi
+    else
+        softwares
+    fi
+}
+
+
+# Install preferred software using the list of packages 'data/multimedias.list'
+function multimedias {
+    i=1
+    packages_list=()
+    while read pkg ; do
+        packages_list+=("${pkg} $i off")
+        i=$[i+1]
+    done < $MULTS
+    # Select packages
+    PACKAGES_SELECT=$(whiptail \
+        --title "List of available software" \
+        --checklist \
+        "Select by space key" \
+        --separate-output \
+        0 0 0 \
+        ${packages_list[@]} \
+        3>&1 1>&2 2>&3)
+    # Install selected packages
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        show_info 'Installing...'
+        show_warning 'Requires root privileges'
+        sudo apt-get install -y --no-install-recommends $PACKAGES_SELECT
+        # Done
+        show_success 'Done.'
+        # Check
+        EXITSTATUS=$1
+        if [[ $EXITSTATUS != 0 ]]; then
+            # Already installed
+            show_success 'Already installed.'
+            whiptail --title "Finished" --msgbox "Your preferred development tools are installed." 8 78
+            codecs
+        else
+            whiptail --title "Finished" --msgbox "Installation complete." 8 78
+            softwares
+        fi
+    else
+        softwares
+    fi
+}
+
+# Sub menu codecs
+function softwares {
+    CONF=$(whiptail \
+        --notags \
+        --title "Install thirdparty software" \
+        --menu "\nWhat would you like to do?" \
+        --cancel-button "Go Back" \
+        0 0 0 \
+        multimedias "Install multimedias softwares" \
+        tools       "Install tools softwares" \
+        3>&1 1>&2 2>&3)
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        $CONF
+    else
+        main
+    fi
+}

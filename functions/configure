@@ -1,0 +1,105 @@
+#!/bin/bash
+
+dir="$(dirname "$0")"
+
+GSETTINGS="$dir/data/gsettings.list"
+
+# Automatically set preferred gsettings keys as outlined in the 'gsettings.list' file
+function preferences {
+    show_info 'Setting preferred application-specific & desktop settings...'
+    while IFS= read line
+    do
+        gsettings set $line
+    done < "$GSETTINGS"
+    # desacive global menu
+    sudo apt-get remove -y appmenu-gtk appmenu-gtk3 appmenu-qt
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Settings changed successfully." 8 78
+    configure
+}
+
+# Show start-up all start-up applications by modifying the 'NoDisplay' line of their .desktop files
+function startup {
+    show_info 'Changing display of startup applications...'
+    show_warning 'Requires root privileges'
+    sudo sed -i "s/NoDisplay=true/NoDisplay=false/g" /etc/xdg/autostart/*.desktop
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Settings changed successfully." 8 78
+    configure
+}
+
+# Replaces main 'sources.list' with a leaned down version
+function sources {
+    show_info 'Changing system-wide sources.list...'
+    show_warning 'Requires root privileges'
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0FEB6DD9
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4C9D234C
+    sudo cp -r $dir/data/sources.list /etc/apt
+    # Update repository information
+    show_info 'Updating repository information...'
+    show_warning 'Requires root privileges'
+    sudo apt-get update
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Sources list changed successfully." 8 78
+    configure
+}
+
+# Disable Apport
+function apport {
+    show_info 'Disabling apport crash dialogs...'
+    show_warning 'Requires root privileges'
+    sudo sed -i "s/enabled=1/enabled=0/g" /etc/default/apport
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Settings changed successfully." 8 78
+    configure
+}
+
+# Configure swap tlp and install intel-microde only if intel cpu
+function stuff {
+    show_info 'Configuring swap, tlp and install intel-microcode...'
+    show_warning 'Requires root privileges'
+    # Configure swap
+    echo vm.swappiness=5 | sudo tee /etc/sysctl.d/99-swappiness.conf
+    echo vm.vfs_cache_pressure=50 | sudo tee -a /etc/sysctl.d/99-swappiness.conf
+    sudo sysctl -p /etc/sysctl.d/99-swappiness.conf
+    # Configure temperature settings
+    sudo apt-get install tlp -y
+    sudo tlp start
+    sudo systemctl enable tlp
+    sudo systemctl enable tlp-sleep
+    # Install intel microcode
+    if [[ "lscpu | grep Intel" ]]; then
+        sudo apt-get install -y intel-microcode
+    fi
+    # Done
+    show_success 'Done.'
+    whiptail --title "Finished" --msgbox "Settings changed successfully." 8 78
+    configure
+}
+
+
+# Configure System
+function configure {
+    CONF=$(whiptail \
+        --notags \
+        --title "Configure System" \
+        --menu "\nWhat would you like to do?" \
+        --cancel-button "Go Back" \
+        0 0 0 \
+        preferences "Set preferred application-specific & desktop settings" \
+        startup     "how all startup applications" \
+        sources     "Enable all software sources (replaces sources.list)" \
+        apport      "Disable system crash dialogs" \
+        stuff       "Configure swap tlp and install intel-microde only if intel cpu" \
+        3>&1 1>&2 2>&3)
+    exitstatus=$?
+    if [ $exitstatus = 0 ]; then
+        $CONF
+    else
+        main
+    fi
+}
