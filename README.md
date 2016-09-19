@@ -1,4 +1,4 @@
-Post Install Scripts for ubuntu Lts 16.04
+Post Install Scripts for ubuntu 16.04 Lts
 =========================================
 
 Based on the [Sam Hewitt](https://github.com/snwh) scripts, available [here](https://github.com/snwh/ubuntu-post-install)
