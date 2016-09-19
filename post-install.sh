@@ -1,5 +1,8 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------
+# Based on the Sam Hewitt's scripts
+# available here <https://github.com/snwh/ubuntu-post-install>
+# ----------------------------------------------------------------------------
 # Authors     : radiium <radiium@openmailbox.org>
 # Description : A post-installation bash script for Ubuntu
 # version     : 0.1
@@ -20,12 +23,6 @@ dir="$(dirname "$0")"
 . $dir/functions/softwares
 . $dir/functions/cleanup
 
-
-# . $dir/functions/development
-# . $dir/functions/favs
-# . $dir/functions/gnome
-# . $dir/functions/thirdparty
-# . $dir/functions/utilities
 
 #----- Fancy Messages -----#
 show_error(){
