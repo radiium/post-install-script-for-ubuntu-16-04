@@ -14,7 +14,7 @@ If you have suggestions, Do not hesitate to contact me
 
 ### Use
 
-# By download:
+#### By download:
 [Download zip](https://github.com/radiium/post-install-script-for-ubuntu-16-04/archive/master.zip) and Extract .zip file
 
 and run in your favorite terminal:
@@ -25,7 +25,7 @@ $ ./post-install.sh
 ```
 
 
-# By git clone:
+#### By git clone:
 
 run in your favorite terminal:
 ```sh
