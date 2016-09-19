@@ -12,9 +12,25 @@ Based on the [Sam Hewitt](https://github.com/snwh) scripts, available [here](htt
 If you have suggestions, Do not hesitate to contact me
 
 
-### Installation
+### Use
 
-Extract .zip file
+[Download zip](https://github.com/radiium/post-install-script-for-ubuntu-16-04/archive/master.zip) and Extract .zip file
+
+or
+
+run in terminal
+```sh
+$ git clone git@github.com:radiium/post-install-script-for-ubuntu-16-04.git
+```
+
+
+```sh
+$ git clone git@github.com:radiium/post-install-script-for-ubuntu-16-04.git
+$ cd post-install-script-for-ubuntu-16-04-master
+$ chmod +x post-install.sh
+$ ./post-install.sh
+```
+
 and run in terminal :
 
 ```sh
