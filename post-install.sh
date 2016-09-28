@@ -4,7 +4,8 @@
 # available here <https://github.com/snwh/ubuntu-post-install>
 # ----------------------------------------------------------------------------
 # Authors     : radiium <radiium@openmailbox.org>
-# Description : A post-installation bash script for Ubuntu
+# github repo : <https://github.com/radiium>
+# Description : A post-installation bash script for Ubuntu 16.04
 # version     : 0.1
 # ----------------------------------------------------------------------------
 
@@ -13,7 +14,6 @@ tabs 4
 clear
 
 #----- Import Functions -----#
-
 dir="$(dirname "$0")"
 
 . $dir/functions/check
@@ -49,13 +49,14 @@ echo -e "\033[0;37m$@\033[0m"
 
 #----- Main Menu -----#
 function main {
+    eval `resize`
     MAIN=$(whiptail \
         --notags \
         --title "Ubuntu Post-Install Script" \
         --menu "\nWhat would you like to do?" \
         --cancel-button "Quit" \
-        0 0 0 \
-        configure   "Configure system" \
+        $LINES $COLUMNS $(( $LINES - 8 )) \
+        configure   "Configure system\nsomeme" \
         update      "Perform system update" \
         codecs      "Install codecs" \
         softwares   "Install preferred software" \
@@ -69,7 +70,7 @@ function main {
     fi
 }
 
-# Quit
+# Confirm quit menu
 function quit {
     if (whiptail --title "Quit" --yesno "Are you sure you want quit?" 10 60) then
         echo "Exiting..."
@@ -80,7 +81,7 @@ function quit {
     fi
 }
 
-#RUN
+# RUN
 check_dependencies
 while :
 do

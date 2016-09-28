@@ -1,7 +1,6 @@
 #!/bin/bash
 
 dir="$(dirname "$0")"
-
 CODS="$dir/data/codecs.list"
 
 # Install Ubuntu Restricted Extras
@@ -40,15 +39,18 @@ function others {
         packages_list+=("${pkg} $i off")
         i=$[i+1]
     done < $CODS
+
     # Select packages
+    eval `resize`
     PACKAGES_SELECT=$(whiptail \
         --title "List of available codecs" \
         --checklist \
         "Select by space key" \
         --separate-output \
-        0 0 0 \
+        $LINES $COLUMNS $(( $LINES - 12 )) \
         ${packages_list[@]} \
         3>&1 1>&2 2>&3)
+
     # Install selected packages
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
@@ -58,12 +60,11 @@ function others {
         if [[ "cat $PACKAGES_SELECT | grep libdvd-pkg" ]]; then
             sudo dpkg-reconfigure libdvd-pkg
         fi
-        # Done
         show_success 'Done.'
+
         # Check
         EXITSTATUS=$1
         if [[ $EXITSTATUS != 0 ]]; then
-            # Already installed
             show_success 'Already installed.'
             whiptail --title "Finished" --msgbox "Your preferred development tools are installed." 8 78
             codecs
@@ -76,8 +77,9 @@ function others {
     fi
 }
 
-# Sub menu codecs
+# Codecs sub menu
 function codecs {
+    eval `resize`
     CONF=$(whiptail \
         --notags \
         --title "Configure System" \

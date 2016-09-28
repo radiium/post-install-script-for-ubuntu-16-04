@@ -4,7 +4,7 @@ dir="$(dirname "$0")"
 
 PURGED="$dir/data/purge.list"
 
-# Remove unused/unwanted packages that are listed in 'data/purge.list'
+# Remove unused/unwanted packages# that are listed in 'data/purge.list'
 function unused {
     if (eval `resize` && whiptail \
         --title "Remove Un-used Pre-installed Applications" \
@@ -86,7 +86,6 @@ function cleanup {
         unused      'Remove unused pre-installed packages' \
         kernels     'Remove old kernel(s)' \
         3>&1 1>&2 2>&3)
-
     exitstatus=$?
     if [ $exitstatus = 0 ]; then
         $CLEANUP
