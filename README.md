@@ -1,4 +1,4 @@
-Post Install Scripts for ubuntu Lts 16.04
+Post Install Scripts for ubuntu 16.04 Lts
 =========================================
 
 Based on the [Sam Hewitt](https://github.com/snwh) scripts, available [here](https://github.com/snwh/ubuntu-post-install)
@@ -12,11 +12,11 @@ Based on the [Sam Hewitt](https://github.com/snwh) scripts, available [here](htt
 If you have suggestions, Do not hesitate to contact me
 
 
-### Installation
+### Use
 
-Extract .zip file
-and run in terminal :
+Download and Extract .zip or clone repo
 
+Run in your favorite terminal:
 ```sh
 $ cd post-install-script-for-ubuntu-16-04-master
 $ chmod +x post-install.sh
