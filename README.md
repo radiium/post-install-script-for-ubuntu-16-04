@@ -1,4 +1,4 @@
-Post Install Scripts for ubuntu 16.04 Lts
+[DEPRECATED]Post Install Scripts for ubuntu 16.04 Lts
 =========================================
 
 Based on the [Sam Hewitt](https://github.com/snwh) scripts, available [here](https://github.com/snwh/ubuntu-post-install)
@@ -6,11 +6,7 @@ Based on the [Sam Hewitt](https://github.com/snwh) scripts, available [here](htt
 
 > **Note:**
 
-> - The script is in progress and operates partially
-> - I'll maybe do it again with zenity
-
-If you have suggestions, Do not hesitate to contact me
-
+> - DEPRECATED script!
 
 ### Use
 
